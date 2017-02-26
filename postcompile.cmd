@@ -33,5 +33,15 @@ if exist USBDrop.bak (
     del USBDrop.au3
     ren USBDrop.bak USBDrop.au3
 )
+
+REM *** Remove the stripped file
 del USBDrop_stripped.au3
+
+REM *** Remove the BackUp folder
 rmdir /S /Q BackUp
+
+REM *** Remove the temporary files with compiler directives
+del FileVersion.au3
+del ProductVersion.au3
+
+

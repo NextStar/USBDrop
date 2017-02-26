@@ -24,18 +24,15 @@ REM *** Load the version number from version.txt
 set /p BuildVersion=<version.txt
 set BuildVersion=%BuildVersion: =%
 
-REM *** Create a temporary file with the version information for the compiler
-echo #pragma compile(FileVersion, '%BuildVersion%') > temp.au3
-echo #pragma compile(ProductVersion, '%BuildVersion%') >> temp.au3
+REM *** Create temporary files with the version information for the compiler
+echo #pragma compile(FileVersion, '%BuildVersion%') > FileVersion.au3
+echo #pragma compile(ProductVersion, '%BuildVersion%') > ProductVersion.au3
 
 REM *** Save the original file 
 ren USBDrop.au3 USBDrop.bak
 
 REM *** Merge the compiler directives with the source
-copy temp.au3 + USBDroptemp.au3 USBDrop.au3 
-
-REM *** Remove the temporary file with compiler directives
-del temp.au3 
+type FileVersion.au3 ProductVersion.au3 USBDrop.bak > USBDrop.au3 
 
 REM *** Remove any previous self-extractor for this version
 del release\USBDropSelfExtractor-%BuildVersion%.exe
